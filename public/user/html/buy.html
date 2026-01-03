@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đang xử lý giao dịch...</title>
+    <style>
+        /* --- CSS GIAO DIỆN --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a2e; /* Màu nền tối giống shop game */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .result-card {
+            background: #16213e;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid #0f3460;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng loading */
+        .loader-container {
+            display: block;
+        }
+        .loader {
+            border: 5px solid #0f3460;
+            border-top: 5px solid #e94560;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Icon kết quả */
+        .icon-box { font-size: 60px; margin-bottom: 15px; }
+        .success-icon { color: #4caf50; }
+        .error-icon { color: #e94560; }
+
+        h2 { margin: 0 0 10px; color: #fff; }
+        p { color: #a6a6a6; margin-bottom: 25px; line-height: 1.5; }
+
+        /* Khung hiển thị tài khoản */
+        .acc-info-box {
+            background: #0f3460;
+            border: 1px dashed #e94560;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 25px;
+            display: none; /* Mặc định ẩn */
+        }
+
+        .acc-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .acc-row:last-child { margin-bottom: 0; }
+
+        .acc-label { font-size: 0.9em; color: #ccc; margin-bottom: 5px; }
+        .acc-value { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.2em; 
+            color: #ffeb3b; 
+            font-weight: bold;
+            background: rgba(0,0,0,0.2);
+            padding: 5px 10px;
+            border-radius: 4px;
+            width: 100%;
+            margin-right: 10px;
+        }
+
+        /* Nút bấm */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1em;
+        }
+
+        .btn-copy {
+            background: #e94560;
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.85em;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        .btn-copy:hover { background: #ff2e4d; }
+        .btn-copy:active { transform: scale(0.95); }
+
+        .btn-home {
+            background: #007bff;
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-home:hover { background: #0056b3; }
+
+        .btn-retry {
+            background: #555;
+            color: white;
+        }
+
+        .note {
+            font-size: 0.85em;
+            color: #e94560;
+            margin-top: 20px;
+            font-style: italic;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="result-card">
+        
+        <div id="loadingView" class="loader-container">
+            <div class="loader"></div>
+            <h3>Đang kết nối Server...</h3>
+            <p>Vui lòng không tắt trình duyệt.</p>
+        </div>
+
+        <div id="resultView" style="display: none;">
+            <div id="iconBox" class="icon-box"></div>
+            <h2 id="resultTitle">Tiêu đề</h2>
+            <p id="resultMessage">Nội dung thông báo...</p>
+
+            <div class="acc-info-box" id="accBox">
+                <div class="acc-row">
+                    <div style="width: 100%;">
+                        <div class="acc-label">Tài khoản:</div>
+                        <div style="display:flex; align-items:center;">
+                            <div class="acc-value" id="tkVal">...</div>
+                            <button class="btn btn-copy" onclick="copyToClipboard('tkVal')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="acc-row">
+                    <div style="width: 100%;">
+                        <div class="acc-label">Mật khẩu:</div>
+                        <div style="display:flex; align-items:center;">
+                            <div class="acc-value" id="mkVal">...</div>
+                            <button class="btn btn-copy" onclick="copyToClipboard('mkVal')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="actionButtons">
+                <a href="/index.html" class="btn btn-home">Về Trang Chủ</a>
+            </div>
+
+            <div class="note" id="securityNote">⚠️ Cảnh báo: Hãy đổi mật khẩu ngay sau khi đăng nhập để bảo mật!</div>
+        </div>
+
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Lấy thông tin từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const userId = urlParams.get('userid');
+
+        // SỬA 1: Đường dẫn API phải khớp với server.js (/api/buy)
+        const API_URL = "http://localhost:3000/api/buy"; 
+
+        // Kiểm tra dữ liệu đầu vào
+        if (!productId || !userId) {
+            showError("Thiếu thông tin giao dịch (ID Sản phẩm hoặc User).");
+            return;
+        }
+
+        // 2. GỌI API ĐỂ MUA HÀNG (SỬA 2: Dùng POST thay vì GET)
+        fetch(API_URL, {
+            method: 'POST', // Quan trọng: Phải là POST
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                userId: userId, 
+                productId: productId 
+            })
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Lỗi kết nối Server");
+            return response.json();
+        })
+        .then(data => {
+            // SỬA 3: Kiểm tra biến 'success' trả về từ server mới
+            if (data.success === true) {
+                showSuccess(data);
+                // Cập nhật số dư hiển thị
+                updateLocalBalance(userId); 
+            } else {
+                showError(data.message);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            showError("Lỗi kết nối: Server chưa bật hoặc sai đường dẫn.");
+        });
+    });
+
+    // --- CÁC HÀM HỖ TRỢ (GIỮ NGUYÊN LOGIC CŨ, CHỈ CHỈNH SỬA NHỎ) ---
+
+    function showSuccess(data) {
+        hideLoading();
+        
+        const iconBox = document.getElementById("iconBox");
+        iconBox.innerHTML = '<i class="fa-solid fa-circle-check"></i>'; // Hoặc icon mặc định
+        iconBox.innerText = "🎉"; // Emoji cho đơn giản
+        iconBox.className = "icon-box success-icon";
+
+        document.getElementById("resultTitle").innerText = "Giao dịch thành công!";
+        document.getElementById("resultMessage").innerText = data.message;
+
+        document.getElementById("accBox").style.display = "block";
+        document.getElementById("tkVal").innerText = data.account;
+        document.getElementById("mkVal").innerText = data.password;
+        
+        document.getElementById("securityNote").style.display = "block";
+        document.getElementById("actionButtons").innerHTML = `<a href="/index.html" class="btn btn-home">Tiếp tục mua sắm</a>`;
+    }
+
+    function showError(message) {
+        hideLoading();
+        const iconBox = document.getElementById("iconBox");
+        iconBox.innerText = "😢";
+        iconBox.className = "icon-box error-icon";
+
+        document.getElementById("resultTitle").innerText = "Giao dịch thất bại";
+        document.getElementById("resultMessage").innerText = message;
+        
+        if (message && message.toLowerCase().includes("số dư")) {
+             document.getElementById("actionButtons").innerHTML = 
+             `<a href="/user/html/naptien.html" class="btn btn-copy" style="background:#4caf50;">Nạp tiền ngay</a> 
+              <br><br> 
+              <a href="/index.html" class="btn btn-retry">Chọn acc khác</a>`;
+        } else {
+            document.getElementById("actionButtons").innerHTML = `<a href="/index.html" class="btn btn-retry">Quay lại Shop</a>`;
+        }
+    }
+
+    function hideLoading() {
+        document.getElementById("loadingView").style.display = "none";
+        document.getElementById("resultView").style.display = "block";
+    }
+
+    function copyToClipboard(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Đã sao chép: " + text);
+        });
+    }
+
+    // --- HÀM CẬP NHẬT SỐ DƯ ---
+    async function updateLocalBalance(userId) {
+        try {
+            // API lấy thông tin user (GET)
+            const res = await fetch(`http://localhost:3000/api/info?userid=${userId}`);
+            const updatedInfo = await res.json();
+
+            if (updatedInfo) {
+                let currentUser = localStorage.getItem("user");
+                if (currentUser) {
+                    currentUser = JSON.parse(currentUser);
+                    // Cập nhật số dư mới
+                    currentUser.balance = updatedInfo.Balance;
+                    localStorage.setItem("user", JSON.stringify(currentUser));
+                }
+            }
+        } catch (e) {
+            console.error("Lỗi cập nhật số dư:", e);
+        }
+    }
+</script>
+</body>
+</html>

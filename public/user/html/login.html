@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/user/css/login.css">
+<body class="login-body">
+  <div class="login-container">
+    <h2>Đăng nhập</h2>
+    <form action="#" method="post" class="login-form">
+      <label for="username">Tên tài khoản</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Mật khẩu</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Đăng nhập</button>
+      <button type="button" class="cancel-btn" onclick="window.location.href='/index.html'">Hủy</button>
+      
+      <p>Bạn chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
+    </form>
+  </div>
+
+  <script src="/user/js/user_auth.js"></script>
+</body>
+

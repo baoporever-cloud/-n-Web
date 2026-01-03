@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nạp Tiền Tài Khoản - XOPSCAMACC</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/index.css"> <link rel="stylesheet" href="tocchien.css">  </head>
+<body>
+
+<!-- HEADER ĐƠN GIẢN -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="logo">
+        <div class="logo-icon">X</div>
+        <span class="logo-text">XOPSCAMACC</span>
+      </div>
+      <nav class="nav">
+        <a href="/index.html">Trang chủ</a>
+        <a href="/user/html/huongdanmuaacc.html">Hướng dẫn</a>
+        <a href="/user/html/lienhe.html">Liên hệ</a>
+        <a href="/user/html/naptien.html">Nạp tiền</a>
+      </nav>
+      <div class="auth" id="auth-section">
+    <a class="btn-outline" href="/user/html/login.html">Đăng Nhập</a>
+    <a class="btn-primary" href="/user/html/register.html">Đăng Ký</a>
+</div>
+    </div>
+  </header>
+
+<main class="sale-page">
+
+  <!-- BANNER THÔNG BÁO -->
+  <section class="sale-banner">
+    <div class="sale-container">
+      <p class="sale-title">
+        TÀI KHOẢN LMHT - ĐTCL TRÊN WEB LÀ TÀI KHOẢN RIOT TRẮNG THÔNG TIN :
+        <span class="hl-yellow">ĐỔI ĐƯỢC MAIL VÀ MẬT KHẨU</span>
+      </p>
+      <p class="sale-sub">
+        MỌI THẮC MẮC CÁC BẠN NHẮN TIN CHO SHOP QUA FACEBOOK :
+        <span class="hl-yellow">TẠI ĐÂY</span> HOẶC ZALO <span class="hl-yellow">0966 344 123</span>
+      </p>
+    </div>
+  </section>
+  <section class="filter-section">
+    <div class="filter-container">
+        
+        <div class="filter-item search-item">
+            <input type="text" id="search-keyword" placeholder="🔍 Tên tướng, Skin, Rank..." onkeyup="if(event.key === 'Enter') applyFilter()">
+        </div>
+
+        <div class="filter-item">
+            <select id="filter-price">
+                <option value="all">💰 Tất cả mức giá</option>
+                <option value="0-50000">Dưới 50k</option>
+                <option value="50000-100000">50k - 100k</option>
+                <option value="100000-200000">100k - 200k</option>
+                <option value="200000-500000">200k - 500k</option>
+                <option value="500000-9999999">Trên 500k</option>
+            </select>
+        </div>
+
+        <div class="filter-item">
+            <select id="sort-price">
+                <option value="default">⚡ Sắp xếp mặc định</option>
+                <option value="asc">Giá: Thấp ➝ Cao</option>
+                <option value="desc">Giá: Cao ➝ Thấp</option>
+            </select>
+        </div>
+
+        <button onclick="applyFilter()" class="btn-filter">LỌC NGAY</button>
+    </div>
+</section>
+
+ 
+ 
+        <div class="game-grid" id="product-list">
+                <p style="color: white; text-align: center;">Đang tải dữ liệu...</p>
+            </div>
+
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="/products.js"></script>
+</body>
+<footer class="custom-footer">
+
+  <div class="footer-row">
+
+    <!-- Cột 1 -->
+    <div class="footer-col">
+      <p>Địa chỉ: Cẩm Sơn - Anh Sơn - Nghệ An</p>
+      <p>© 2025, Copyright by XOPSCAAMACC - Shop Acc Uy Tín.</p>
+
+      <div class="footer-box hotline-box">
+        <div class="icon-call">📞</div>
+        <div>
+          <p><span class="yellow">Hotline:</span> 0966 344 123</p>
+          <p style="font-weight: bold;">Hoàng Tuấn Hưng</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cột 2 -->
+    <div class="footer-col">
+      <p>Thời gian làm việc: <b class="white">GIAO DỊCH TỰ ĐỘNG 24/24</b> các ngày trong tuần</p>
+
+      <p>Acc đã bán ra: <span class="yellow">204.267</span></p>
+      <p>Tổng số thành viên: <span class="yellow">286.253</span></p>
+      <p>Đang online: <span id="online" class="yellow">1</span></p>
+      <p>Số lần truy cập: <span class="yellow">40.105.320</span></p>
+    </div>
+
+    <!-- Cột 3 -->
+    <div class="footer-col">
+      <p>Liên kết chia sẻ:</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/varst.inv" target="_blank"><img src="fb.png"></a>
+        <a href="https://www.youtube.com/@XopsCamAcc" target="_blank"><img src="yt.png"></a>
+        <a href="https://www.instagram.com/hungw_ht/" target="_blank"><img src="ig.png"></a>
+        <a href="https://www.tiktok.com/@ten_tiktok" target="_blank"><img src="news.png"></a>
+        <a href="https://www.pinterest.com/#shop" target="_blank"><img src="pin.png"></a>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</html>

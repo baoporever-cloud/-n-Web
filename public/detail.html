@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nạp Tiền Tài Khoản - XOPSCAMACC</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/index.css"> <link rel="stylesheet" href="/user/css/naptien.css">  </head>
+<head>
+    
+    <link rel="stylesheet" href="/index.css"> <style>
+        /* CSS Riêng cho trang chi tiết */
+        .detail-container { max-width: 1100px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+        
+        .img-box img { width: 100%; border-radius: 10px; border: 2px solid #2f3542; box-shadow: 0 0 20px rgba(0,180,255,0.2); }
+        
+        .info-box { background: #1a1b26; padding: 30px; border-radius: 10px; border: 1px solid #2f3542; }
+        .info-box h1 { color: #fff; margin-top: 0; font-size: 24px; line-height: 1.4; }
+        .price-tag { font-size: 28px; color: #ffc107; font-weight: bold; margin: 15px 0; display: block; }
+        
+        .meta-info { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed #444; }
+        .meta-info p { color: #a0a0a0; margin: 8px 0; }
+        .meta-info b { color: #00b4ff; }
+
+        .desc-box { margin-top: 20px; background: #0f111a; padding: 15px; border-radius: 8px; color: #ccc; line-height: 1.6; font-size: 14px; white-space: pre-line; }
+
+        .btn-buy-now { width: 100%; background: linear-gradient(90deg, #e53935, #d32f2f); color: white; border: none; padding: 15px; font-size: 18px; font-weight: bold; text-transform: uppercase; cursor: pointer; border-radius: 6px; transition: 0.2s; }
+        .btn-buy-now:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(229, 57, 53, 0.4); }
+
+        @media (max-width: 768px) { .detail-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="logo">
+                <div class="logo-icon">X</div>
+                <span class="logo-text">XOPSCAMACC</span>
+            </div>
+            <nav class="nav">
+                <a href="/index.html">Trang chủ</a>
+                <a href="/user/html/huongdanmuaacc.html">Hướng dẫn</a>
+                <a href="/user/html/lienhe.html">Liên hệ</a>
+                <a href="/user/html/naptien.html" class="active">Nạp tiền</a>
+            </nav>
+            
+            <div class="auth" id="auth-section">
+                <a class="btn-outline" href="login.html">Đăng Nhập</a>
+                <a class="btn-primary" href="register.html">Đăng Ký</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="detail-container">
+        <div class="img-box">
+            <img id="d-img" src="" alt="Ảnh Acc">
+        </div>
+
+        <div class="info-box">
+            <h1 id="d-title">Đang tải thông tin...</h1>
+            <p>Mã số: <b id="d-id" style="color: #fff">...</b></p>
+            <span class="price-tag" id="d-price">0 đ</span>
+            
+            <div class="meta-info">
+                <p>Game: <b id="d-game">LMHT</b></p>
+                <p>Trạng thái: <b style="color: #00e676">Sẵn sàng giao dịch</b></p>
+            </div>
+
+            <button class="btn-buy-now" id="btn-buy">MUA NGAY</button>
+
+            <div class="desc-box">
+                <h4 style="margin-top: 0; color: #fff;">Mô tả chi tiết:</h4>
+                <div id="d-desc">...</div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/detail.js"></script>
+    <script src="/products.js"></script> 
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Quản Trị - XOPSCAMACC</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/user/css/admin.css">
+</head>
+<body>
+
+    <div class="admin-wrapper">
+        
+        <header class="admin-header">
+            <div class="header-left">
+                <div class="logo-icon">X</div>
+                <span class="logo-text">ADMIN DASHBOARD</span>
+            </div>
+            <div class="header-right">
+                <span class="admin-name">Xin chào, <b>Admin</b></span>
+                <button onclick="logoutAdmin()" class="btn-logout">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Đăng Xuất
+                </button>
+            </div>
+        </header>
+
+        <main class="admin-content">
+            <div class="dashboard-cards">
+    
+    <div class="card card-deposit" style="border-color: #00e676;">
+        <div class="card-icon">💸</div>
+        <div class="card-info">
+            <h3>Tổng Tiền Nạp</h3> <p id="st-deposit">...</p>
+        </div>
+    </div>
+
+    <div class="card card-sales">
+        <div class="card-icon">📈</div>
+        <div class="card-info">
+            <h3>Doanh Số Bán</h3> <p id="st-sales">...</p> 
+        </div>
+    </div>
+
+    <div class="card card-users">
+        <div class="card-icon">👥</div>
+        <div class="card-info">
+            <h3>Thành Viên</h3>
+            <p id="st-users">...</p>
+        </div>
+    </div>
+
+    <div class="card card-stock">
+        <div class="card-icon">📦</div>
+        <div class="card-info">
+            <h3>Tồn Kho</h3>
+            <p id="st-stock">...</p>
+        </div>
+    </div>
+</div>
+            <section class="data-section">
+    <div class="section-header">
+        <h2>➕ Đăng Bán Tài Khoản Mới</h2>
+    </div>
+    
+    <div style="padding: 25px;">
+        <form id="add-product-form" onsubmit="event.preventDefault(); handleAddProduct();">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                
+                <div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; color:#ccc; margin-bottom:5px;">Tiêu đề Acc:</label>
+                        <input type="text" id="p-title" required placeholder="VD: Acc Yasuo 2 triệu điểm" 
+                               style="width:100%; padding:10px; background:#0f111a; border:1px solid #2f3542; color:white; border-radius:4px;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; color:#ccc; margin-bottom:5px;">Loại Game:</label>
+                        <select id="p-code" required style="width:100%; padding:10px; background:#0f111a; border:1px solid #2f3542; color:white; border-radius:4px;">
+                            <option value="">-- Chọn danh mục --</option>
+                            <option value="LMHT">LMHT Tự Chọn</option>
+                            <option value="LMHT_SALE">LMHT Giảm Giá</option>
+                            <option value="LMHT_ZIN">LMHT Thông Thạo</option>
+                            <option value="LMHT_FOREIGN">LMHT Server Nước Ngoài</option>
+                            <option value="DTCL_SELEC">ĐTCL Tự Chọn</option>
+                            <option value="DTCL_PET">ĐTCL Pet Tím</option>
+                            <option value="SPT">Săn Pet Tím</option>
+                            <option value="TVM">Thử Vận May</option>
+                            <option value="LQ">Liên Quân Mobile</option>
+                            <option value="FF">Free Fire</option>
+                            <option value="TC">Tốc Chiến</option>
+                            <option value="VAL">Valorant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; color:#ccc; margin-bottom:5px;">Giá tiền (VNĐ):</label>
+                        <input type="number" id="p-price" required placeholder="VD: 50000"
+                               style="width:100%; padding:10px; background:#0f111a; border:1px solid #2f3542; color:white; border-radius:4px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display:block; color:#ccc; margin-bottom:5px;">Link Ảnh (URL):</label>
+                        <input type="text" id="p-image" placeholder="images/lmht1.jpg" value="images/lmht1.jpg"
+                               style="width:100%; padding:10px; background:#0f111a; border:1px solid #2f3542; color:white; border-radius:4px;">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; color:#00e676; margin-bottom:5px;">Tài khoản đăng nhập (Ẩn):</label>
+                        <input type="text" id="p-acc" required placeholder="Tên đăng nhập game"
+                               style="width:100%; padding:10px; background:#0f111a; border:1px solid #00e676; color:white; border-radius:4px;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display:block; color:#00e676; margin-bottom:5px;">Mật khẩu (Ẩn):</label>
+                        <input type="text" id="p-pass" required placeholder="Mật khẩu game"
+                               style="width:100%; padding:10px; background:#0f111a; border:1px solid #00e676; color:white; border-radius:4px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display:block; color:#ccc; margin-bottom:5px;">Mô tả chi tiết:</label>
+                        <textarea id="p-desc" rows="4" placeholder="Rank, Skin, Tướng..."
+                                  style="width:100%; padding:10px; background:#0f111a; border:1px solid #2f3542; color:white; border-radius:4px;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" style="margin-top:20px; width:100%; padding:12px; background:#00b4ff; border:none; color:white; font-weight:bold; cursor:pointer; border-radius:6px; text-transform:uppercase;">
+                🚀 Đăng Bán Ngay
+            </button>
+        </form>
+    </div>
+</section>
+<section class="data-section">
+    <div class="section-header">
+        <h2>📦 Quản Lý Kho Hàng</h2>
+        <button onclick="loadManageProducts()" style="background:#333; color:white; border:none; padding:5px 10px; cursor:pointer">Làm mới</button>
+    </div>
+    <div class="filter-bar">
+        <input type="text" id="search-input" onkeyup="filterProducts()" 
+               placeholder="🔍 Tìm ID, Tên Acc, Tài khoản game...">
+        
+        <select id="filter-status" onchange="filterProducts()">
+            <option value="all">-- Tất cả trạng thái --</option>
+            <option value="available">✅ Còn hàng</option>
+            <option value="sold">❌ Đã bán</option>
+        </select>
+    </div>
+    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Danh mục</th>
+                    <th>Ảnh</th>
+                    <th>Tên Acc</th>
+                    <th>Giá tiền</th>
+                    <th>Tài khoản / Mật khẩu</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="product-list"></tbody>
+        </table>
+    </div>
+</section>
+
+<div id="edit-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>✏️ SỬA THÔNG TIN ACC <span id="edit-id-display"></span></h3>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="edit-id"> <div class="form-group">
+                <label>Tiêu đề:</label>
+                <input type="text" id="edit-title">
+            </div>
+            <div class="form-group">
+                <label>Danh mục Game:</label>
+                <select id="edit-category">
+                <option value="">-- Đang tải danh mục... --</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Giá tiền:</label>
+                <input type="number" id="edit-price">
+            </div>
+
+            <div class="form-group">
+                <label>Ảnh (URL):</label>
+                <input type="text" id="edit-image">
+            </div>
+
+            <div class="form-group">
+                <label>Tài khoản Game:</label>
+                <input type="text" id="edit-acc">
+            </div>
+
+            <div class="form-group">
+                <label>Mật khẩu Game:</label>
+                <input type="text" id="edit-pass">
+            </div>
+
+            <div class="form-group">
+                <label>Mô tả:</label>
+                <textarea id="edit-desc" rows="3"></textarea>
+            </div>
+
+            <button onclick="submitEditProduct()" class="btn-save">LƯU THAY ĐỔI</button>
+        </div>
+    </div>
+</div>
+<section class="data-section">
+    <div class="section-header">
+        <h2>💰 Lịch Sử Bán Hàng</h2>
+        <button onclick="loadOrders()" style="background:#333; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius: 4px;">🔄 Làm mới</button>
+    </div>
+
+    <div class="filter-bar">
+        <input type="text" id="search-order" onkeyup="filterOrders()" 
+               placeholder="🔍 Tìm Mã đơn, Tên khách, Tên Acc...">
+    </div>
+
+    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Khách hàng</th>
+                    <th>Sản phẩm (Acc)</th>
+                    <th>Thông tin (TK | MK)</th>
+                    <th>Giá bán</th>
+                    <th>Thời gian</th>
+                </tr>
+            </thead>
+            <tbody id="order-list">
+                <tr><td colspan="6">Đang tải dữ liệu...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<section class="data-section">
+    <div class="section-header">
+        <h2>💳 Lịch Sử Giao Dịch Nạp Tiền</h2>
+        <button onclick="loadDepositHistory()" style="background:#333; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius: 4px;">🔄 Làm mới</button>
+    </div>
+
+    <div class="filter-bar">
+        <input type="text" id="search-deposit" onkeyup="filterDepositHistory()" 
+               placeholder="🔍 Tìm ID, Tên User, Seri thẻ...">
+        
+        <select id="filter-deposit-status" onchange="filterDepositHistory()">
+            <option value="all">-- Tất cả trạng thái --</option>
+            <option value="Approved">✅ Thành công</option>
+            <option value="Rejected">❌ Thất bại</option>
+            <option value="Pending">⏳ Chờ duyệt</option>
+        </select>
+    </div>
+
+    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Người nạp</th>
+                    <th>Loại / Mệnh giá</th>
+                    <th>Thông tin thẻ (Seri / Code)</th>
+                    <th>Trạng thái</th>
+                    <th>Thời gian</th>
+                </tr>
+            </thead>
+            <tbody id="deposit-history-list">
+                <tr><td colspan="6">Đang tải dữ liệu...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+            
+            
+
+            <section class="data-section">
+                <div class="section-header">
+                    <h2>🔔 Yêu Cầu Nạp Thẻ Mới <span id="pending-count" style="background:red; color:white; padding:2px 8px; border-radius:10px; font-size:14px;">0</span></h2></h2>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table-admin">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tài khoản</th>
+                                <th>Loại thẻ</th>
+                                <th>Mệnh giá</th>
+                                <th>Thông tin thẻ (Seri / Code)</th>
+                                <th>Thời gian</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deposit-list">
+                            <tr><td colspan="7" class="loading-text">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="data-section">
+    <div class="section-header">
+        <h2>👥 Quản Lý Thành Viên</h2>
+        <button onclick="loadUsers()" style="background:#333; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius: 4px;">🔄 Làm mới</button>
+    </div>
+
+    <div class="filter-bar">
+        <input type="text" id="search-user" onkeyup="filterUsers()" 
+               placeholder="🔍 Tìm ID, Tên đăng nhập, Email...">
+    </div>
+
+    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Email</th>
+                    <th>Số dư (VNĐ)</th>
+                    <th>Chức vụ</th>
+                    <th>Ngày tạo</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="user-list"></tbody>
+        </table>
+    </div>
+</section>
+
+<div id="balance-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h3>💰 CHỈNH SỬA SỐ DƯ</h3>
+            <span class="close" onclick="closeBalanceModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="bal-user-id">
+            <p>Đang chỉnh tiền cho: <b id="bal-username" style="color:#00b4ff">...</b></p>
+            
+            <div class="form-group">
+                <label>Chọn thao tác:</label>
+                <select id="bal-type" style="width:100%; padding:10px; background:#0f111a; color:white; border:1px solid #333;">
+                    <option value="ADD">➕ Cộng tiền</option>
+                    <option value="SUB">➖ Trừ tiền</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Số tiền:</label>
+                <input type="number" id="bal-amount" placeholder="Nhập số tiền...">
+            </div>
+
+            <button onclick="submitBalanceChange()" class="btn-save">XÁC NHẬN</button>
+        </div>
+    </div>
+</div>
+            <section class="data-section">
+    <div class="section-header">
+        <h2>📩 Yêu Cầu Hỗ Trợ Khách Hàng</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên khách</th>
+                    <th>Liên hệ (Email/Zalo)</th>
+                    <th>Mã đơn</th>
+                    <th>Nội dung</th>
+                    <th>Thời gian</th>
+                </tr>
+            </thead>
+            <tbody id="support-list"></tbody>
+        </table>
+    </div>
+</section>
+
+        </main>
+    </div>
+
+    <script src="/user/js/admin.js"></script>
+</body>
+</html>

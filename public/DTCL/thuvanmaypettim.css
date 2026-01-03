@@ -1,0 +1,284 @@
+/*  RESET & BASE STYLES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0b0e14; 
+    color: #e6edf3;
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+
+/* Màu điểm nhấn  */
+:root {
+    --color-primary: #ffc107; 
+    --color-primary-dark: #ff9800;
+    --color-accent: #00b4ff; 
+    --color-bg-dark: #0d1017;
+    --color-bg-card: #161b22;
+    --color-border: #2f3542;
+    --color-text-muted: #8b949e;
+}
+
+
+/* BANNER SECTION*/
+.sale-banner {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg');
+    background-size: cover; background-position: center 20%;
+    padding: 80px 0; text-align: center;
+    border-bottom: 3px solid var(--color-primary);
+}
+.sale-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+.sale-title { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 20px;text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.sale-sub { font-size: 16px; color: #e6edf3; font-weight: 500; }
+.hl-yellow { color: var(--color-primary); font-weight: bold; text-shadow: 0 0 10px rgba(255, 193, 7, 0.3); }
+
+/* THANH FILTER */
+.filter-section {
+    background: #0e1219;
+    padding: 25px 0;
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.filter-container {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; flex-wrap: wrap; gap: 15px;
+    align-items: center;
+}
+
+.filter-item { flex: 1; min-width: 180px; position: relative; }
+.search-item { flex: 2; min-width: 250px; } 
+
+/* Style chung cho Input và Select */
+.filter-item input, 
+.filter-item select {
+    width: 100%; height: 50px; padding: 0 20px;
+    background: var(--color-bg-card);
+    border: 1px solid #3c455c; 
+    color: #e6edf3;
+    border-radius: 6px; font-size: 14px; font-weight: 500;
+    outline: none; transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Xóa mũi tên mặc định của browser */
+.filter-item select {
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2300b4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 15px center;
+    cursor: pointer;
+}
+
+/* Hiệu ứng khi Focus  */
+.filter-item input:focus, 
+.filter-item select:focus {
+    border-color: var(--color-accent); 
+    box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.2); 
+    background: #1c222b;
+}
+
+.filter-item input::placeholder { color: #6e7681; }
+
+/* Nút Lọc */
+.btn-filter {
+    height: 50px; padding: 0 35px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border: none; border-radius: 6px;
+    color: #000; font-weight: 800; font-size: 14px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    cursor: pointer; transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-filter:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4); 
+}
+
+/* GAME GRID & PRODUCT CARD  */
+.main-content { padding: 50px 0; min-height: 600px; }
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px;
+}
+
+/* Thẻ Game */
+.game-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border); 
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex; flex-direction: column;
+}
+
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 180, 255, 0.3) inset; 
+}
+
+/* Phần Ảnh */
+.card-img-wrap {
+    position: relative; width: 100%; padding-top: 56.25%; 
+    overflow: hidden; cursor: pointer;
+    border-bottom: 1px solid var(--color-border);
+}
+.card-img-wrap img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: contain; transition: transform 0.5s ease;
+}
+.game-card:hover .card-img-wrap img { transform: scale(1.1);  }
+
+/* Phần Nội dung */
+.card-body {
+    padding: 20px;
+    flex-grow: 1; display: flex; flex-direction: column;
+}
+
+/* Tiêu đề Acc */
+.card-body h3 {
+    font-size: 18px; font-weight: 700; color: #fff;
+    margin-bottom: 10px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    cursor: pointer; transition: color 0.3s;
+}
+.card-body h3:hover { color: var(--color-accent); }
+
+/* Thông tin phụ */
+.card-info {
+    font-size: 13px; color: var(--color-text-muted);
+    margin-bottom: 20px; font-family: monospace;
+    display: flex; align-items: center; gap: 5px;
+}
+.card-info::before { content: '#'; color: var(--color-accent); }
+
+/* Phần Giá và Nút Mua */
+.card-price {
+    margin-top: auto; 
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #252b36;
+}
+
+/* Giá tiền */
+.price-new {
+    font-size: 22px; font-weight: 800; color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+}
+
+/* Nút Mua  */
+.card-price button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); 
+    color: #000;
+    border: none; border-radius: 6px;
+    font-weight: 800; font-size: 14px;
+    cursor: pointer; transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+.card-price button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.5); 
+}
+
+/*RESPONSIVE MOBILE*/
+@media (max-width: 768px) {
+    .topbar-inner { flex-direction: column; gap: 15px; }
+    .nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
+    .sale-title { font-size: 22px; }
+    .filter-container { flex-direction: column; }
+    .filter-item, .search-item, .btn-filter { width: 100%; }
+    .game-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+}
+.custom-footer {
+  background: #0a0a0a;
+  padding: 35px 20px;
+  color: #bfbfbf;
+  font-size: 15px;
+}
+
+.footer-row {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 250px;
+}
+
+.custom-footer p {
+  margin: 6px 0;
+}
+
+.yellow {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.white {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Hộp hotline */
+.footer-box {
+  display: flex;
+  align-items: center;
+  background: #151515;
+  border: 1px solid #333;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.icon-call {
+  font-size: 28px;
+  margin-right: 10px;
+  color: #ffcc00;
+}
+
+/* Social Icon */
+.social-icons img {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.social-icons img:hover {
+  transform: scale(1.15);
+}
+
+/* Responsive */
+@media(max-width: 768px){
+  .footer-row{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-box{
+    justify-content: center;
+  }
+
+  .social-icons{
+    justify-content: center;
+    display: flex;
+  }
+}

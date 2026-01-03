@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Cá Nhân - XOPSCAMACC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css"> <link rel="stylesheet" href="/user/css/profile.css">  </head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="logo">
+                <div class="logo-icon">X</div>
+                <span class="logo-text">XOPSCAMACC</span>
+            </div>
+            <nav class="nav">
+                <a href="/index.html">Trang chủ</a>
+                <a href="/user/html/huongdanmuaacc.html">Hướng dẫn</a>
+                <a href="/user/html/lienhe.html">Liên hệ</a>
+                <a href="/user/html/naptien.html">Nạp tiền</a>
+                
+            </nav>
+            <div class="auth" id="auth-section">
+                </div>
+        </div>
+    </header>
+
+    <main class="profile-page">
+        <div class="container">
+            
+            <div class="profile-grid">
+                
+                <aside class="user-sidebar">
+                    <div class="user-card">
+                        <div class="avatar-circle">
+                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar">
+                        </div>
+                        <h2 id="p-username">...</h2>
+                        <p class="role-badge" id="p-role">Thành viên</p>
+                        
+                        <div class="balance-box">
+                            <span>Số dư:</span>
+                            <strong id="p-balance">0 đ</strong>
+                        </div>
+
+                        <div class="menu-list">
+                            <button class="menu-item active" onclick="switchTab('orders')">📦 Acc đã mua</button>
+                            <button class="menu-item" onclick="switchTab('deposits')">💳 Lịch sử nạp</button>
+                            <div style="margin-top: 20px;">
+    <button onclick="openEditProfile()" class="btn-primary" style="width: 100%; max-width: 200px;">
+        ✏️ Sửa Thông Tin
+    </button>
+</div>
+
+<div id="profile-modal" class="modal" style="display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);">
+    <div class="modal-content" style="background: #1a1b26; margin: 10% auto; padding: 25px; border: 1px solid #00b4ff; width: 90%; max-width: 400px; border-radius: 10px; color: white;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:10px;">
+            <h3>CẬP NHẬT HỒ SƠ</h3>
+            <span onclick="closeEditProfile()" style="cursor:pointer; font-size:24px; color:#aaa;">&times;</span>
+        </div>
+
+        <form id="edit-profile-form" onsubmit="event.preventDefault(); submitEditProfile();">
+            <div style="margin-bottom:15px;">
+                <label>Tên đăng nhập mới:</label>
+                <input type="text" id="edit-username" required style="width:100%; padding:10px; background:#0f111a; border:1px solid #333; color:white; margin-top:5px;">
+            </div>
+
+            <div style="margin-bottom:15px;">
+                <label>Email / Số điện thoại:</label>
+                <input type="text" id="edit-email" style="width:100%; padding:10px; background:#0f111a; border:1px solid #333; color:white; margin-top:5px;">
+            </div>
+
+            <div style="margin-bottom:15px;">
+                <label>Mật khẩu mới (Để trống nếu không đổi):</label>
+                <input type="password" id="edit-new-pass" placeholder="Nhập mật khẩu mới..." style="width:100%; padding:10px; background:#0f111a; border:1px solid #333; color:white; margin-top:5px;">
+            </div>
+
+            <hr style="border:0; border-top:1px dashed #555; margin: 20px 0;">
+
+            <div style="margin-bottom:15px;">
+                <label style="color:#ff3d00; font-weight:bold;">Mật khẩu hiện tại (Để xác nhận):</label>
+                <input type="password" id="edit-old-pass" required placeholder="Nhập mật khẩu cũ..." style="width:100%; padding:10px; background:#0f111a; border:1px solid #ff3d00; color:white; margin-top:5px;">
+            </div>
+
+            <button type="submit" style="width:100%; padding:12px; background:#00e676; border:none; color:black; font-weight:bold; cursor:pointer;">LƯU THAY ĐỔI</button>
+        </form>
+    </div>
+</div>
+                            <button class="menu-item logout" onclick="logout()">🚪 Đăng xuất</button>
+                            
+                        </div>
+                    </div>
+                </aside>
+
+                <section class="content-area">
+                    
+                    <div id="tab-orders" class="tab-content">
+                        <h3 class="tab-title">📦 KHO TÀI KHOẢN ĐÃ MUA</h3>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Game</th>
+                                        <th>Tài khoản / Mật khẩu</th>
+                                        <th>Giá mua</th>
+                                        <th>Ngày mua</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="order-list">
+                                    <tr><td colspan="4">Đang tải...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="tab-deposits" class="tab-content" style="display: none;">
+                        <h3 class="tab-title">💳 LỊCH SỬ NẠP THẺ</h3>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Loại thẻ</th>
+                                        <th>Mệnh giá</th>
+                                        <th>Seri / Mã thẻ</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thời gian</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="deposit-list">
+                                    <tr><td colspan="5">Đang tải...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                </section>
+            </div>
+        </div>
+        
+    </main>
+
+    <script src="/user/js/profile.js"></script>
+</body>
+</html>
